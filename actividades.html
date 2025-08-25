@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Misión: Restaurar Datos</title>
+ <link rel="stylesheet" href="actividades.css">
+
+</head>
+<body>
+
+<div class="container">
+  
+  <div id="pagina1" class="page active">
+    <h1>Año 2160 🤖</h1>
+    <p>El mundo depende de sistemas inteligentes, pero sus datos se han desordenado. Tu misión es restaurar el orden.</p>
+    <img src="ciudad.png" alt="Ciudad futurista en crisis">
+    <button class="nav-button" onclick="mostrarPagina('pagina2')">Continuar</button>
+  </div>
+
+  <div id="pagina2" class="page">
+    <h1>Tu Misión 🎯</h1>
+    <p>Restaura las estructuras de datos dominando el arte de las listas en JavaScript. ¡Cada ejercicio cuenta!</p>
+    <img src="inteligente.png" alt="Restauración de datos">
+    <button class="nav-button" onclick="mostrarPagina('pagina1')">Volver</button>
+    <button class="nav-button" onclick="mostrarPagina('pagina3')">Comenzar Ejercicios</button>
+  </div>
+
+  <div id="pagina3" class="page">
+    <h1>Ejercicio 1: Crear</h1>
+    <p>¿Cuál es la forma correcta de crear una lista?</p>
+    <button onclick="responder(this, true, 'pagina4')">let miLista = ["a", "b"];</button>
+    <button onclick="responder(this, false, 'pagina4')">let miLista = ("a", "b");</button>
+    <button onclick="responder(this, false, 'pagina4')">let miLista = {"a", "b"};</button>
+    <div class="feedback"></div>
+  </div>
+
+  <div id="pagina4" class="page">
+    <h1>Ejercicio 2: Acceder</h1>
+    <p>Con <code>let n = [10, 20, 30]</code>, ¿cómo accedes al número 20?</p>
+    <button onclick="responder(this, false, 'pagina5')">n(1)</button>
+    <button onclick="responder(this, true, 'pagina5')">n[1]</button>
+    <button onclick="responder(this, false, 'pagina5')">n{1}</button>
+    <div class="feedback"></div>
+  </div>
+
+  <div id="pagina5" class="page">
+    <h1>Ejercicio 3: Añadir</h1>
+    <p>¿Qué método añade un elemento al final de una lista?</p>
+    <button onclick="responder(this, true, 'pagina6')">.push()</button>
+    <button onclick="responder(this, false, 'pagina6')">.pop()</button>
+    <button onclick="responder(this, false, 'pagina6')">.shift()</button>
+    <div class="feedback"></div>
+  </div>
+
+  <div id="pagina6" class="page">
+    <h1>Ejercicio 4: Eliminar</h1>
+    <p>¿Qué método elimina el primer elemento de una lista?</p>
+    <button onclick="responder(this, false, 'pagina7')">.pop()</button>
+    <button onclick="responder(this, true, 'pagina7')">.shift()</button>
+    <button onclick="responder(this, false, 'pagina7')">.splice()</button>
+    <div class="feedback"></div>
+  </div>
+
+  <div id="pagina7" class="page">
+    <h1>Ejercicio 5: Recorrer</h1>
+    <p>¿Cuál es una forma correcta de recorrer una lista?</p>
+    <button onclick="responder(this, true, 'pagina8')">for (let i=0; i < lista.length; i++)</button>
+    <button onclick="responder(this, false, 'pagina8')">while (lista)</button>
+    <button onclick="responder(this, false, 'pagina8')">if (lista.length)</button>
+    <div class="feedback"></div>
+  </div>
+
+  <div id="pagina8" class="page">
+    <h1>🎉 ¡Misión Cumplida!</h1>
+    <p>Gracias a tu ayuda si lograste restaurar al sistema inteligente, felicitaciones.Si no lo lograte vuele a intentarlo</p>
+    <div id="puntajeFinal"></div>
+    <img src="final.png" alt="Celebración futurista">
+    <button class="nav-button" onclick="reiniciarMision()">Reiniciar Misión</button>
+  </div>
+</div>
+
+<script>
+  // Variables para guardar la puntuación
+  let correctas = 0;
+  let incorrectas = 0;
+
+  // Función para cambiar entre páginas
+  function mostrarPagina(idPagina) {
+    // Oculta todas las páginas
+    document.querySelectorAll('.page').forEach(page => {
+      page.classList.remove('active');
+    });
+    // Muestra solo la página deseada
+    document.getElementById(idPagina).classList.add('active');
+
+    // Si es la página final, muestra la puntuación
+    if (idPagina === 'pagina8') {
+      document.getElementById('puntajeFinal').innerHTML = `
+        <h3>Resumen de la Misión:</h3>
+        <p><strong>✅ Respuestas Correctas:</strong> ${correctas}</p>
+        <p><strong>❌ Respuestas Incorrectas:</strong> ${incorrectas}</p>
+      `;
+    }
+  }
+
+  // Función para manejar la respuesta a una pregunta
+  function responder(boton, esCorrecta, siguientePagina) {
+    const paginaActual = boton.parentElement;
+    const feedback = paginaActual.querySelector('.feedback');
+    
+    // Deshabilita todos los botones de respuesta para evitar doble clic
+    paginaActual.querySelectorAll('button:not(.nav-button)').forEach(b => b.disabled = true);
+
+    if (esCorrecta) {
+      feedback.textContent = "✅ ¡Correcto!";
+      feedback.style.color = 'green';
+      correctas++;
+    } else {
+      feedback.textContent = "❌ Incorrecto";
+      feedback.style.color = 'red';
+      incorrectas++;
+    }
+
+    // Espera un momento para que el usuario vea el feedback y luego avanza
+    setTimeout(() => {
+      mostrarPagina(siguientePagina);
+    }, 1200); // 1.2 segundos
+  }
+
+  // Función para reiniciar el juego
+  function reiniciarMision() {
+    correctas = 0;
+    incorrectas = 0;
+
+    // Limpia el texto de feedback y reactiva los botones
+    document.querySelectorAll('.feedback').forEach(fb => fb.textContent = '');
+    document.querySelectorAll('.page button').forEach(b => b.disabled = false);
+
+    // Vuelve a la primera página
+    mostrarPagina('pagina1');
+  }
+</script>
+
+</body>
+</html>

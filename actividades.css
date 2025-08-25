@@ -1,0 +1,72 @@
+  
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f4f8;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 600px;
+      width: 100%;
+      background-color: #ffffff;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .page {
+      display: none; /* Oculta todas las páginas por defecto */
+    }
+    .page.active {
+      display: block; /* Muestra solo la página activa */
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 20px;
+      margin-top: 10px;
+      cursor: pointer;
+      font-size: 1rem;
+      width: 90%;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+    button:hover:not(:disabled) {
+      background-color: #0056b3;
+    }
+    button:active:not(:disabled) {
+      transform: scale(0.98);
+    }
+    button.nav-button { /* Botones de navegación (anterior, siguiente) */
+      width: auto;
+      background-color: #6c757d;
+      margin: 15px 5px 0 5px;
+    }
+    button:disabled {
+      background-color: #a0a0a0;
+      cursor: not-allowed;
+    }
+    .feedback {
+      margin-top: 15px;
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+    img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin-top: 15px;
+    }
+    #puntajeFinal {
+      background-color: #e9f5ff;
+      border-left: 5px solid #007bff;
+      padding: 15px;
+      margin-top: 20px;
+      text-align: left;
+    }
+  
